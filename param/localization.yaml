@@ -4,7 +4,7 @@
       score_threshold: 2.0
       ndt_resolution: 1.0
       ndt_step_size: 0.1
-      ndt_num_threads: 4
+      ndt_num_threads: 6
       ndt_max_iterations: 35
       transform_epsilon: 0.01
       voxel_leaf_size: 0.2
@@ -30,3 +30,4 @@
       base_frame_id: base_link
       enable_timer_publishing: false
       pose_publish_frequency: 30.0
+      publish_tf: false

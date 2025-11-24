@@ -38,6 +38,7 @@ PCLLocalization::PCLLocalization(const rclcpp::NodeOptions & options)
   declare_parameter("enable_debug", false);
   declare_parameter("enable_timer_publishing", false);
   declare_parameter("pose_publish_frequency", 10.0);
+  declare_parameter("publish_tf", false);
 }
 
 using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
@@ -568,7 +569,11 @@ void PCLLocalization::cloudReceived(const sensor_msgs::msg::PointCloud2::ConstSh
     map_to_base_link_stamped.transform.translation.z = static_cast<double>(final_transformation(2, 3));
     map_to_base_link_stamped.transform.rotation = quat_msg;
     if (!enable_map_odom_tf_) {
-      broadcaster_.sendTransform(map_to_base_link_stamped);
+      if (!publish_tf_) {
+        return;
+      } else {
+        broadcaster_.sendTransform(map_to_base_link_stamped);
+      }
     } else {
       tf2::Transform map_to_base_link_tf;
       tf2::fromMsg(map_to_base_link_stamped.transform, map_to_base_link_tf);
@@ -657,7 +662,11 @@ void PCLLocalization::timerPublishPose()
   map_to_base_link_stamped.transform.rotation = pose_copy.pose.pose.orientation;
 
   if (!enable_map_odom_tf_) {
-    broadcaster_.sendTransform(map_to_base_link_stamped);
+    if (!publish_tf_) {
+      return;
+    } else {
+      broadcaster_.sendTransform(map_to_base_link_stamped);
+    }
   } else {
     tf2::Transform map_to_base_link_tf;
     tf2::fromMsg(map_to_base_link_stamped.transform, map_to_base_link_tf);

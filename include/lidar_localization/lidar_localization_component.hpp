@@ -123,6 +123,7 @@ public:
   bool use_imu_{false};
   bool enable_debug_{false};
   bool enable_map_odom_tf_{false};
+  bool publish_tf_{false};
 
   int ndt_num_threads_;
   int ndt_max_iterations_;
