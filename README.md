@@ -52,6 +52,7 @@ Green: path, Red: map
 |enable_debug|bool|false|whether debug is done or not|
 |enable_timer_publishing|bool|false|if true, publish tf and pose on a set timer frequency|
 |pose_publish_frequency|double|10.0|publishing frequency if enable_timer_publishing is true|
+|publiish_tf|bool|false|do not publish tf if false, without tf, you may need `robot_localizaiton` to localization|
 
 ## demo
 
